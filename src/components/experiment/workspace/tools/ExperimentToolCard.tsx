@@ -1,0 +1,62 @@
+import React from 'react';
+import { LucideIcon } from 'lucide-react';
+
+interface ExperimentTool {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  color: string;
+  features: string[];
+}
+
+interface ExperimentToolCardProps {
+  tool: ExperimentTool;
+}
+
+const colorMap: Record<string, string> = {
+  blue: 'bg-blue-500',
+  purple: 'bg-purple-500',
+  green: 'bg-green-500',
+  orange: 'bg-orange-500',
+  indigo: 'bg-indigo-500',
+  rose: 'bg-rose-500'
+};
+
+export function ExperimentToolCard({ tool }: ExperimentToolCardProps) {
+  return (
+    <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
+      <div className="p-6">
+        <div className="flex items-center">
+          <div className={`p-3 rounded-lg ${colorMap[tool.color]}`}>
+            <tool.icon className="h-6 w-6 text-white" />
+          </div>
+          <div className="ml-4">
+            <h3 className="text-lg font-medium text-gray-900">{tool.title}</h3>
+            <p className="mt-1 text-sm text-gray-500">{tool.description}</p>
+          </div>
+        </div>
+        
+        <div className="mt-4">
+          <div className="flex flex-wrap gap-2">
+            {tool.features.map((feature, index) => (
+              <span
+                key={index}
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                  ${tool.color === 'blue' && 'bg-blue-100 text-blue-800'}
+                  ${tool.color === 'purple' && 'bg-purple-100 text-purple-800'}
+                  ${tool.color === 'green' && 'bg-green-100 text-green-800'}
+                  ${tool.color === 'orange' && 'bg-orange-100 text-orange-800'}
+                  ${tool.color === 'indigo' && 'bg-indigo-100 text-indigo-800'}
+                  ${tool.color === 'rose' && 'bg-rose-100 text-rose-800'}
+                `}
+              >
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
